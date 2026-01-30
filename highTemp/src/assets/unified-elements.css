@@ -1,0 +1,105 @@
+/* 统一下拉框和选择器样式 */
+.el-select {
+  width: 100%;
+}
+
+.el-select .el-input__inner,
+.el-select-dropdown__item,
+.el-select-dropdown {
+  border-radius: 8px !important;
+}
+
+.el-select .el-input__inner {
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #ffd37b !important;
+  background-color: #fffcf0;
+  color: #5e4500;
+  padding: 0 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.el-select .el-input__inner:hover {
+  border-color: #f7b800 !important;
+  background-color: #fffdf7;
+}
+
+.el-select .el-input__inner:focus {
+  border-color: #f7b800 !important;
+  background-color: #fffdf7;
+  box-shadow: 0 0 0 2px rgba(247, 184, 0, 0.2);
+}
+
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: #f7b800 !important;
+}
+
+.el-select-dropdown {
+  border: 1px solid #ffd37b !important;
+  background-color: #fffcf0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.el-select-dropdown__item {
+  color: #5e4500;
+}
+
+.el-select-dropdown__item.selected,
+.el-select-dropdown__item.hover,
+.el-select-dropdown__item:hover {
+  background-color: rgba(255, 211, 123, 0.2);
+  color: #5e4500;
+}
+
+.el-select-dropdown__item.selected {
+  font-weight: bold;
+}
+
+/* 树形选择等组件统一 */
+.el-tree-node__content:hover {
+  background-color: rgba(255, 211, 123, 0.2);
+}
+
+.el-tree-node.is-current > .el-tree-node__content {
+  background-color: rgba(255, 211, 123, 0.4) !important;
+}
+
+/* 日期选择器统一 */
+.el-date-editor,
+.el-date-picker {
+  border-radius: 8px !important;
+}
+
+.el-date-editor .el-input__inner {
+  border: 1px solid #ffd37b !important;
+  background-color: #fffcf0;
+}
+
+.el-date-table td.current:not(.disabled) span {
+  background-color: #ffd37b !important;
+  color: #5e4500;
+}
+
+/* 输入框统一 */
+.el-input__inner {
+  border: 1px solid #ffd37b !important;
+  border-radius: 8px !important;
+  background-color: #fffcf0;
+  height: 40px;
+  color: #5e4500;
+}
+
+.el-input__inner:focus {
+  border-color: #f7b800 !important;
+  box-shadow: 0 0 0 2px rgba(247, 184, 0, 0.2);
+}
+
+/* 修复图中显示的问题 */
+.el-select__caret {
+  color: #5e4500 !important;
+}
+
+.el-input__suffix {
+  right: 10px;
+} 

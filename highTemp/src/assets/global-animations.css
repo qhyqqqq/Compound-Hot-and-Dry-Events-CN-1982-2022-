@@ -1,0 +1,369 @@
+/* 全局动画和过渡效果 */
+
+/* ==== 组件进入/离开动画 ==== */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* 页面切换动画 */
+.page-transition-enter-active,
+.page-transition-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition-enter,
+.page-transition-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* ==== 按钮美化和动画 ==== */
+.el-button {
+  border-radius: 20px !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.el-button:not(.el-button--text):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.el-button--primary {
+  background: linear-gradient(135deg, #409EFF, #53a8ff) !important;
+  border: none !important;
+}
+
+.el-button--primary:hover {
+  background: linear-gradient(135deg, #53a8ff, #409EFF) !important;
+}
+
+.el-button--success {
+  background: linear-gradient(135deg, #67C23A, #85ce61) !important;
+  border: none !important;
+}
+
+.el-button--warning {
+  background: linear-gradient(135deg, #E6A23C, #f5c879) !important;
+  border: none !important;
+}
+
+.el-button--danger {
+  background: linear-gradient(135deg, #F56C6C, #f89898) !important;
+  border: none !important;
+}
+
+.el-button:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.el-button:hover:after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* ==== 卡片动画 ==== */
+.el-card {
+  border-radius: 16px !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: cardFadeIn 0.6s ease-out;
+}
+
+.el-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-2px);
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== 表单元素动画 ==== */
+.el-input__inner,
+.el-textarea__inner,
+.el-select-dropdown__item,
+.el-checkbox,
+.el-radio,
+.el-switch {
+  transition: all 0.3s ease;
+  border-radius: 16px !important;
+}
+
+.el-input__inner:focus,
+.el-textarea__inner:focus {
+  transform: scale(1.01);
+  box-shadow: 0 0 8px rgba(64, 158, 255, 0.2);
+}
+
+/* ==== 下拉菜单动画 ==== */
+.el-dropdown-menu {
+  border-radius: 16px !important;
+  overflow: hidden;
+  animation: dropdownFadeIn 0.3s ease-out;
+}
+
+.el-dropdown-menu__item {
+  transition: all 0.2s ease;
+  border-radius: 12px;
+  margin: 4px 6px;
+}
+
+.el-dropdown-menu__item:hover {
+  background-color: #f5f7fa;
+  transform: translateX(3px);
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== 表格动画 ==== */
+.el-table {
+  border-radius: 16px !important;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.el-table__row {
+  transition: all 0.2s ease;
+}
+
+.el-table__row:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 2;
+  position: relative;
+}
+
+.el-table__row td {
+  transition: all 0.2s ease;
+}
+
+/* ==== 对话框动画 ==== */
+.el-dialog {
+  border-radius: 20px !important;
+  overflow: hidden;
+  animation: dialogZoomIn 0.3s ease-out;
+}
+
+.el-dialog__header {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.el-dialog__footer {
+  border-top: 1px solid #f0f0f0;
+}
+
+@keyframes dialogZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==== 标签动画 ==== */
+.el-tag {
+  border-radius: 16px !important;
+  transition: all 0.2s ease;
+  animation: tagPop 0.3s ease-out;
+}
+
+.el-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes tagPop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==== 加载动画 ==== */
+.el-loading-spinner {
+  animation: loadingSpin 0.8s ease-in-out infinite;
+}
+
+@keyframes loadingSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==== 通知和消息动画 ==== */
+.el-message, .el-notification {
+  border-radius: 16px !important;
+  animation: messageFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes messageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==== 菜单项动画 ==== */
+.el-menu-item {
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.el-menu-item:hover {
+  background-color: rgba(64, 158, 255, 0.1) !important;
+}
+
+.el-menu-item.is-active {
+  position: relative;
+}
+
+.el-menu-item.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #409EFF, transparent);
+  animation: menuActivate 0.3s ease-out;
+}
+
+@keyframes menuActivate {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* ==== 图表动画 ==== */
+.chart-container {
+  animation: chartFadeIn 1s ease-out;
+}
+
+@keyframes chartFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==== 常用动画关键帧 ==== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scale {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ==== 地图组件动画 ==== */
+.map-container {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.map-jl {
+  animation: mapLoad 1s ease-out;
+}
+
+@keyframes mapLoad {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+} 

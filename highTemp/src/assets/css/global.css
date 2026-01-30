@@ -1,0 +1,486 @@
+/* 全局按钮动画效果 */
+
+/* 所有按钮基础动画 */
+.el-button,
+.func-button,
+button,
+[class*="button"],
+[role="button"] {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* 按钮悬停效果 */
+.el-button:hover,
+.func-button:hover,
+button:hover,
+[class*="button"]:hover,
+[role="button"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 按钮点击效果 */
+.el-button:active,
+.func-button:active,
+button:active,
+[class*="button"]:active,
+[role="button"]:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 波纹效果基类 */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  transform: scale(0);
+  animation: rippleEffect 0.6s linear;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(20);
+    opacity: 0;
+  }
+}
+
+/* 按钮光晕效果 */
+.el-button::before,
+.func-button::before,
+button::before,
+[class*="button"]::before,
+[role="button"]::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+              rgba(255, 255, 255, 0.8) 0%, 
+              rgba(255, 255, 255, 0) 50%);
+  opacity: 0;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.el-button:hover::before,
+.func-button:hover::before,
+button:hover::before,
+[class*="button"]:hover::before,
+[role="button"]:hover::before {
+  opacity: 0.5;
+}
+
+/* 特定按钮类型样式覆盖 */
+.el-button--primary:hover, 
+.el-button--success:hover,
+.el-button--warning:hover,
+.el-button--danger:hover,
+.el-button--info:hover {
+  transform: translateY(-3px);
+}
+
+/* 图标按钮特殊处理 */
+.el-button--icon:hover {
+  transform: translateY(-3px) rotate(5deg);
+}
+
+/* 禁用状态按钮不应用动画 */
+.el-button.is-disabled:hover,
+button:disabled:hover,
+[disabled]:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* 输入框对称设计优化 */
+.el-input-number,
+.el-input {
+  width: 100%;
+  margin: 0;
+}
+
+/* 确保对称的输入框设计 */
+.el-input__inner {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  text-align: center; /* 文本居中 */
+  border-radius: 4px;
+  border: 1px solid #DCDFE6;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* 调整上下箭头位置确保对称 */
+.el-input-number__decrease, 
+.el-input-number__increase {
+  width: 32px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  border: none;
+  background: #f5f7fa;
+}
+
+.el-input-number__decrease {
+  left: 0;
+  border-right: 1px solid #DCDFE6;
+  border-radius: 4px 0 0 4px;
+}
+
+.el-input-number__increase {
+  right: 0;
+  border-left: 1px solid #DCDFE6;
+  border-radius: 0 4px 4px 0;
+}
+
+/* 确保表单项标签对齐 */
+.el-form-item__label {
+  text-align: right;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding-right: 12px;
+}
+
+/* 必填项标记位置调整 */
+.el-form-item.is-required .el-form-item__label:before {
+  margin-right: 4px;
+}
+
+/* 恢复输入框原始样式 */
+.el-input-number,
+.el-input {
+  transition: none; /* 移除之前添加的过渡效果 */
+  transform: none !important; /* 移除任何变换 */
+}
+
+.el-input-number .el-input__inner,
+.el-input .el-input__inner {
+  transform: none !important;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  box-shadow: none;
+}
+
+/* 移除悬停效果 */
+.el-input-number:hover,
+.el-input:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* 移除输入框3D效果 */
+.el-input-number .el-input__inner:focus,
+.el-input .el-input__inner:focus {
+  animation: none;
+  box-shadow: 0 0 0 1px #DCDFE6 inset;
+}
+
+/* 弹窗动画与过渡效果 */
+.el-dialog__wrapper {
+  transition: background-color 0.3s ease;
+}
+
+.el-dialog {
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  transform: scale(1);
+  opacity: 1;
+  margin-top: 15vh !important; /* 固定位置，防止跳动 */
+}
+
+/* 弹窗入场动画 */
+.dialog-fade-enter-active {
+  transition: all 0.4s;
+}
+
+.dialog-fade-leave-active {
+  transition: all 0.4s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+
+.dialog-fade-enter-from, 
+.dialog-fade-leave-to {
+  transform: scale(0.5);
+  opacity: 0;
+}
+
+.dialog-fade-enter-from .el-dialog {
+  transform: scale(0.9) translateY(-20px);
+  opacity: 0;
+}
+
+.dialog-fade-leave-to .el-dialog {
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+}
+
+/* 弹窗内容平滑显示 */
+.el-dialog__body {
+  overflow: hidden;
+}
+
+/* 消息框动画增强 */
+.el-message-box__wrapper {
+  transition: background-color 0.3s ease;
+}
+
+.el-message-box {
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.msgbox-fade-enter-active {
+  animation: msgbox-fade-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.msgbox-fade-leave-active {
+  animation: msgbox-fade-out 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+
+@keyframes msgbox-fade-in {
+  0% {
+    transform: translate3d(0, -30px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes msgbox-fade-out {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 30px, 0);
+    opacity: 0;
+  }
+}
+
+/* 下拉菜单动画优化 */
+.el-dropdown-menu {
+  transform-origin: center top;
+  animation: dropdown-fade-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes dropdown-fade-in {
+  0% {
+    transform: scaleY(0.8) translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 抽屉动画优化 */
+.el-drawer__container {
+  transition: background-color 0.3s ease;
+}
+
+.el-drawer {
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+}
+
+.el-drawer.rtl {
+  transform: translateX(100%);
+}
+
+.el-drawer.ltr {
+  transform: translateX(-100%);
+}
+
+.el-drawer.ttb {
+  transform: translateY(-100%);
+}
+
+.el-drawer.btt {
+  transform: translateY(100%);
+}
+
+.drawer-fade-enter-active .el-drawer.rtl, 
+.drawer-fade-enter-active .el-drawer.ltr, 
+.drawer-fade-enter-active .el-drawer.ttb, 
+.drawer-fade-enter-active .el-drawer.btt {
+  transform: translate(0, 0);
+}
+
+/* 弹出菜单动画 */
+.el-popover {
+  transition-property: transform, opacity !important;
+  transition-duration: 0.4s !important;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  transform-origin: center top;
+}
+
+.el-popover[x-placement^="top"] {
+  transform-origin: center bottom;
+}
+
+.el-popover[x-placement^="left"] {
+  transform-origin: right center;
+}
+
+.el-popover[x-placement^="right"] {
+  transform-origin: left center;
+}
+
+.el-popper-fade-enter-from,
+.el-popper-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+/* 统计分析弹窗动画效果 */
+
+/* 分析图表悬浮效果 */
+.analysis-image,
+.image-container img,
+.zoomed-image-container img,
+.zoomed-image,
+.el-dialog__body img,
+.el-dialog__body .chart-container,
+.el-dialog__body .echarts,
+.el-dialog__body [class*="chart"],
+.el-dialog__body [class*="graph"] {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* 鼠标悬浮效果 */
+.analysis-image:hover,
+.image-container img:hover,
+.zoomed-image-container img:hover,
+.el-dialog__body img:hover,
+.el-dialog__body .chart-container:hover,
+.el-dialog__body .echarts:hover,
+.el-dialog__body [class*="chart"]:hover,
+.el-dialog__body [class*="graph"]:hover {
+  transform: scale(1.02) translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+/* 统计数据项悬浮效果 */
+.el-dialog__body .data-item,
+.el-dialog__body .stat-item,
+.el-dialog__body [class*="data-"],
+.el-dialog__body [class*="stat-"],
+.el-dialog__body .el-table__row,
+.el-dialog__body .el-descriptions-item {
+  transition: all 0.25s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.el-dialog__body .data-item:hover,
+.el-dialog__body .stat-item:hover,
+.el-dialog__body [class*="data-"]:hover,
+.el-dialog__body [class*="stat-"]:hover,
+.el-dialog__body .el-table__row:hover,
+.el-dialog__body .el-descriptions-item:hover {
+  transform: translateX(5px);
+  background-color: rgba(255, 211, 123, 0.1);
+  z-index: 2;
+}
+
+/* 图例悬浮效果 */
+.el-dialog__body .legend-item,
+.el-dialog__body [class*="legend"],
+.el-dialog__body .el-tag {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.el-dialog__body .legend-item:hover,
+.el-dialog__body [class*="legend"]:hover,
+.el-dialog__body .el-tag:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 区域名称悬浮效果 */
+.region-name,
+.zoomed-region,
+.el-dialog__body [class*="title"],
+.el-dialog__body h1,
+.el-dialog__body h2,
+.el-dialog__body h3,
+.el-dialog__body h4 {
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.region-name:hover,
+.zoomed-region:hover,
+.el-dialog__body [class*="title"]:hover,
+.el-dialog__body h1:hover,
+.el-dialog__body h2:hover,
+.el-dialog__body h3:hover,
+.el-dialog__body h4:hover {
+  color: #D46F03;
+  transform: translateX(5px);
+}
+
+/* 图片网格鼠标悬浮效果增强 */
+.image-grid .image-container {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-grid .image-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.image-grid .image-container:hover:before {
+  opacity: 1;
+}
+
+.image-grid .image-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 下载按钮悬浮效果 */
+.download-button-container .el-button,
+.download-button-container1 .el-button {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.download-button-container .el-button:hover,
+.download-button-container1 .el-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+} 

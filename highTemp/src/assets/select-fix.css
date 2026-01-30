@@ -1,0 +1,31 @@
+/* 全局修复下拉选择器重叠问题 */
+
+.el-select {
+  width: 100%;
+}
+
+.el-select .el-input__inner {
+  padding-right: 30px !important;
+}
+
+.el-select .el-input__suffix {
+  right: 5px;
+  pointer-events: none;
+}
+
+.el-select .el-input__inner::placeholder {
+  text-overflow: ellipsis;
+}
+
+/* 确保下拉箭头不与文本重叠 */
+.el-input__suffix-inner {
+  position: absolute;
+  right: 5px;
+}
+
+/* 确保文本不会被截断 */
+.el-select .el-input__inner {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} 

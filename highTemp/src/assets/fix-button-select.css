@@ -1,0 +1,130 @@
+/* 修复所有蓝色按钮，统一为淡黄色系列 */
+
+/* 覆盖Element UI默认的蓝色按钮 */
+.el-button--primary {
+  background-color: #ffd37b !important;
+  border-color: #ffd37b !important;
+  color: #5e4500 !important;
+}
+
+.el-button--primary:hover {
+  background-color: #ffda8f !important;
+  border-color: #ffda8f !important;
+}
+
+.el-button--primary:active {
+  background-color: #f7b800 !important;
+  border-color: #f7b800 !important;
+}
+
+/* 修复Info按钮颜色 */
+.el-button--info {
+  background-color: #ffd37b !important;
+  border-color: #ffd37b !important;
+  color: #5e4500 !important;
+}
+
+.el-button--info:hover {
+  background-color: #ffda8f !important;
+  border-color: #ffda8f !important;
+}
+
+/* 统一链接颜色 */
+a, .el-link.el-link--primary {
+  color: #f7b800 !important;
+}
+
+a:hover, .el-link.el-link--primary:hover {
+  color: #ffda8f !important;
+}
+
+/* 修复下拉选择器重叠问题 */
+.el-select {
+  display: block;
+  width: 100%;
+}
+
+.el-select .el-input {
+  position: relative;
+  width: 100%;
+}
+
+.el-select .el-input__inner {
+  height: 40px;
+  line-height: 40px;
+  padding-right: 30px !important; /* 确保有足够空间显示下拉箭头 */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.el-select .el-input__suffix {
+  right: 5px;
+  height: 100%;
+  text-align: center;
+  color: #5e4500;
+  transition: all .3s;
+  pointer-events: none; /* 确保点击穿透到select上 */
+}
+
+.el-select .el-input__icon {
+  line-height: 40px !important;
+  width: 25px !important;
+  height: 100%;
+}
+
+/* 确保placeholder文字不与下拉箭头重叠 */
+.el-select .el-input__inner::placeholder {
+  color: #909399;
+  padding-right: 20px;
+}
+
+/* 修复所有表单组件的统一样式 */
+.el-input-group__append, 
+.el-input-group__prepend {
+  background-color: #fffcf0 !important;
+  border-color: #ffd37b !important;
+  color: #5e4500 !important;
+}
+
+/* SPEI下拉框特别修复 */
+.el-select[placeholder="选择SPEI年份"] .el-input__inner,
+.el-select[placeholder="选择SPI年份"] .el-input__inner {
+  padding-left: 15px;
+  padding-right: 30px;
+  text-align: left;
+}
+
+/* 特定页面的按钮组修复 */
+.button-group .el-button,
+.button-group .el-select {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+/* 确保弹出菜单的样式统一 */
+.el-select-dropdown__item.selected {
+  color: #5e4500 !important;
+  font-weight: bold;
+  background-color: rgba(255, 211, 123, 0.2) !important;
+}
+
+/* 活跃状态菜单项 */
+.el-select-dropdown__item.hover, 
+.el-select-dropdown__item:hover {
+  background-color: rgba(255, 211, 123, 0.1) !important;
+}
+
+/* 修复分页器颜色 */
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: #ffd37b !important;
+  color: #5e4500 !important;
+}
+
+.el-pagination button:hover {
+  color: #f7b800 !important;
+}
+
+.el-pager li:hover {
+  color: #f7b800 !important;
+} 

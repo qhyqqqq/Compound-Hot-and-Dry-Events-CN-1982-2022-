@@ -1,0 +1,133 @@
+/* 统一按钮样式 - 使用淡黄色主题 */
+
+/* 基础按钮样式 */
+.el-button {
+  border-radius: 8px !important; /* 适中的圆角 */
+  transition: all 0.25s ease !important;
+  position: relative;
+  border: 1px solid #e8e8e8;
+}
+
+/* 普通按钮悬停效果 */
+.el-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* 主要按钮（Primary）样式 */
+.el-button--primary {
+  background-color: #ffd37b !important; /* 淡黄色 */
+  border-color: #ffd37b !important;
+  color: #5e4500 !important; /* 深褐色文字，提高对比度 */
+}
+
+.el-button--primary:hover {
+  background-color: #ffda8f !important; /* 稍亮的淡黄色 */
+  border-color: #ffda8f !important;
+}
+
+.el-button--primary:active {
+  background-color: #f7b800 !important; /* 稍深的淡黄色 */
+  border-color: #f7b800 !important;
+}
+
+/* 成功按钮样式 */
+.el-button--success {
+  background-color: #ffd37b !important;
+  border-color: #ffd37b !important;
+  color: #5e4500 !important;
+}
+
+.el-button--success:hover {
+  background-color: #ffda8f !important;
+  border-color: #ffda8f !important;
+}
+
+/* 警告按钮样式 */
+.el-button--warning {
+  background-color: #ffd37b !important;
+  border-color: #ffd37b !important;
+  color: #5e4500 !important;
+}
+
+.el-button--warning:hover {
+  background-color: #ffda8f !important;
+  border-color: #ffda8f !important;
+}
+
+/* 危险按钮样式 */
+.el-button--danger {
+  background-color: #F56C6C !important; /* 保留红色以表示危险操作 */
+  border-color: #F56C6C !important;
+  color: #fff !important;
+}
+
+.el-button--danger:hover {
+  background-color: #f78989 !important;
+  border-color: #f78989 !important;
+}
+
+/* 文本按钮样式 */
+.el-button--text {
+  color: #D46F03 !important; /* 橙色文本按钮 */
+  background: transparent !important;
+  border: none !important;
+}
+
+.el-button--text:hover {
+  color: #f7b800 !important;
+  background: transparent !important;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 按钮内图标样式 */
+.el-button [class*=" el-icon-"],
+.el-button [class^=el-icon-] {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* 圆形按钮样式调整 */
+.el-button.is-circle {
+  border-radius: 50% !important;
+  padding: 8px;
+}
+
+/* 按钮尺寸样式保持 */
+.el-button--mini {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.el-button--small {
+  padding: 8px 15px;
+  font-size: 13px;
+}
+
+.el-button--medium {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+/* 禁用按钮样式 */
+.el-button.is-disabled {
+  background-color: #f5f7fa !important;
+  border-color: #e4e7ed !important;
+  color: #c0c4cc !important;
+}
+
+/* 按钮组样式 */
+.el-button-group .el-button {
+  margin-right: -1px;
+}
+
+.el-button-group .el-button:first-child {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.el-button-group .el-button:last-child {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+} 

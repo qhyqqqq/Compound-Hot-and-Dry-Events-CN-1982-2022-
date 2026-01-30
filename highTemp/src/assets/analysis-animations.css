@@ -1,0 +1,134 @@
+/* 统计分析弹窗动画 */
+
+/* 图表容器动画 */
+.zoomed-image-container,
+.chart-container,
+.analysis-image,
+.image-container {
+  animation: chartFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes chartFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 图片序列加载动画 */
+.image-grid .el-col {
+  opacity: 0;
+  animation: imageGridIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 为每个图片添加递增延迟以创建序列效果 */
+.image-grid .el-col:nth-child(1) { animation-delay: 0.1s; }
+.image-grid .el-col:nth-child(2) { animation-delay: 0.15s; }
+.image-grid .el-col:nth-child(3) { animation-delay: 0.2s; }
+.image-grid .el-col:nth-child(4) { animation-delay: 0.25s; }
+.image-grid .el-col:nth-child(5) { animation-delay: 0.3s; }
+.image-grid .el-col:nth-child(6) { animation-delay: 0.35s; }
+.image-grid .el-col:nth-child(7) { animation-delay: 0.4s; }
+.image-grid .el-col:nth-child(8) { animation-delay: 0.45s; }
+.image-grid .el-col:nth-child(9) { animation-delay: 0.5s; }
+
+@keyframes imageGridIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 放大图片动画 */
+.zoomed-image {
+  animation: zoomImageIn 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+@keyframes zoomImageIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 图表内文字动画 */
+.zoomed-region,
+.region-name {
+  animation: textSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+@keyframes textSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 下载按钮动画 */
+.download-button-container,
+.download-button-container1 {
+  animation: buttonFadeIn 0.5s ease;
+  animation-delay: 0.3s;
+  animation-fill-mode: both;
+}
+
+@keyframes buttonFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 图例动画 */
+.map-legend {
+  animation: legendFadeIn 0.6s ease;
+}
+
+@keyframes legendFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 对话框内容动画 */
+.el-dialog__body {
+  animation: dialogContentFadeIn 0.4s ease;
+}
+
+@keyframes dialogContentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

@@ -24,19 +24,17 @@ os.environ["PYTHONIOENCODING"] = "utf-8"
 app = Flask(__name__)
 CORS(app)
 
-# --- 配置常量 ---
-# ECDF分析相关路径
-DATA_FILE_PATH = r'C:\Users\lenovo\Desktop\mysql.csv'
-BASIN_VECTOR_FILE_PATH = r'F:\DATA\复合高温干旱事件识别系统-数据处理成果\1982-2022干旱指数预处理后数据及输出结果\九大流域\China_nine_basin.shp'
-BASIN_NAME_COLUMN = 'name'
-
-# 栅格数据统计相关路径
-RASTER_DATA_PATH = r"F:\DATA\复合高温干旱事件识别系统-数据处理成果\复合高温干旱事件统计结果\复合高温事件_tif"
-BASIN_SHP_PATH = r"F:\DATA\复合高温干旱事件识别系统-数据处理成果\1982-2022干旱指数预处理后数据及输出结果\九大流域\China_nine_basin.shp"
-
-# HWMID数据路径
-HWMID_COUNT_PATH = r"F:\DATA\复合高温干旱事件识别系统-数据处理成果\热浪事件统计结果\HWMID_tif_次数\HWMID_results"
-HWMID_DAYS_PATH = r"F:\DATA\复合高温干旱事件识别系统-数据处理成果\热浪事件统计结果\HWMID_results_tif日数"
+from config import (
+    API_HOST,
+    API_PORT,
+    BASIN_NAME_COLUMN,
+    BASIN_SHP_PATH,
+    BASIN_VECTOR_FILE_PATH,
+    DATA_FILE_PATH,
+    HWMID_COUNT_PATH,
+    HWMID_DAYS_PATH,
+    RASTER_DATA_PATH,
+)
 
 # 全局变量
 data_df = None  # ECDF分析数据
@@ -654,4 +652,4 @@ if __name__ == '__main__':
     print(f"流域边界路径: {BASIN_SHP_PATH}")
     
     # 启动整合后的API服务
-    app.run(host='0.0.0.0', port=5001, debug=True) 
+    app.run(host=API_HOST, port=API_PORT, debug=True) 

@@ -776,6 +776,7 @@ import axios from 'axios';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import * as echarts from 'echarts'; // 引入 echarts
+import { API_BASE_URL } from '../config';
 
 export default {
   data() {
@@ -943,7 +944,7 @@ export default {
     async fetchData() {
       this.tableLoading = true;
       try {
-        const response = await axios.get("http://127.0.0.1:5000/api/data?limit=0");
+        const response = await axios.get(`${API_BASE_URL}/api/data?limit=0`);
         this.dataList = response.data;
         this.filteredData = [...this.dataList];
         this.updatePagination();
@@ -1106,7 +1107,7 @@ export default {
       this.submitLoading = true; // 添加loading状态
       
       axios
-        .post("http://127.0.0.1:5000/api/data", payload)
+        .post(`${API_BASE_URL}/api/data`, payload)
         .then(response => {
           console.log("提交成功响应:", response.data);
           
@@ -1160,7 +1161,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        const deleteUrl = `http://127.0.0.1:5000/api/data/${idToDelete}`;
+        const deleteUrl = `${API_BASE_URL}/api/data/${idToDelete}`;
         console.log("发送删除请求到:", deleteUrl);
         
         this.tableLoading = true;
@@ -1343,7 +1344,7 @@ export default {
       this.submitLoading = true; // 添加loading状态
       
       axios
-        .put(`http://127.0.0.1:5000/api/data/${payload.id}`, payload)
+        .put(`${API_BASE_URL}/api/data/${payload.id}`, payload)
         .then(response => {
           console.log("更新成功响应:", response.data);
           
@@ -1619,7 +1620,7 @@ export default {
 
       try {
         // 构建 API URL
-        let apiUrl = 'http://127.0.0.1:5001/api/ecdf_analysis';  // 正确的端口号
+        let apiUrl = `${API_BASE_URL}/api/ecdf_analysis`;
         if (basinName !== null) { // 只有当 basinName 不是 null 时才添加参数
           apiUrl += `?basin=${encodeURIComponent(basinName)}`;
         }

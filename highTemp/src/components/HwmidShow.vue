@@ -271,6 +271,7 @@ import Basemap from '@arcgis/core/Basemap';
 import TileLayer from '@arcgis/core/layers/TileLayer';
 // 引入ECharts
 import * as echarts from 'echarts';
+import { API_BASE_URL, ARCGIS_BASE_URL } from '../config';
 
 export default {
   data() {
@@ -323,8 +324,7 @@ export default {
       selectedRegions: [],
       regionsOptions: [],
       // 从geojson中提取的流域列表
-      mapServe:
-        "http://localhost:6080/arcgis/rest/services/hwmid/HWMId/MapServer",
+      mapServe: `${ARCGIS_BASE_URL}/hwmid/HWMId/MapServer`,
       // 数据配置
       years: [
     { year: "1982", url: "", layerId: "0" },
@@ -807,7 +807,9 @@ export default {
       try {
         // 使用Promise.race实现超时控制
         const response = await Promise.race([
-          fetch(`http://localhost:5001/api/raster_statistics?region=${this.selectedRegion}&data_type=${this.selectedDataType}`),
+          fetch(
+            `${API_BASE_URL}/api/raster_statistics?region=${this.selectedRegion}&data_type=${this.selectedDataType}`
+          ),
           timeoutPromise
         ]);
         

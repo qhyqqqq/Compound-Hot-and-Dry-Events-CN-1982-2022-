@@ -266,6 +266,7 @@ import Basemap from '@arcgis/core/Basemap';
 import TileLayer from '@arcgis/core/layers/TileLayer';
 // 引入ECharts
 import * as echarts from 'echarts';
+import { API_BASE_URL, ARCGIS_BASE_URL } from '../config';
 
 export default {
   data() {
@@ -319,8 +320,7 @@ export default {
       selectedRegions: [],
       regionsOptions: [],
       // 从geojson中提取的流域列表
-      mapServe:
-        "http://localhost:6080/arcgis/rest/services/复合/复合事件发布/MapServer",
+      mapServe: `${ARCGIS_BASE_URL}/复合/复合事件发布/MapServer`,
       // 数据配置
      years: [
     { year: "1982", url: "", layerId: "0" },
@@ -802,7 +802,7 @@ handleYearChange(year) {
       this.chartLoading = true;
       try {
         // 调用后端API获取统计数据
-        const response = await fetch(`http://localhost:5001/api/raster_statistics?region=${this.selectedRegion}`);
+        const response = await fetch(`${API_BASE_URL}/api/raster_statistics?region=${this.selectedRegion}`);
         
         if (!response.ok) {
           throw new Error(`API请求失败: ${response.status} ${response.statusText}`);

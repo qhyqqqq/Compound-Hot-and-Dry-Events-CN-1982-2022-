@@ -1947,7 +1947,14 @@ export default {
     },
     
     resizeEcdfChart() { /* ... (保持不变) ... */ },
-    disposeEcdfChart() { /* ... (保持不变) ... */ },
+    disposeEcdfChart() {
+      if (this.ecdfChartInstance) {
+        this.ecdfChartInstance.off('legendselectchanged', this.handleLegendSelectChanged);
+        this.ecdfChartInstance.dispose();
+        this.ecdfChartInstance = null;
+      }
+      window.removeEventListener('resize', this.resizeEcdfChart);
+    },
     handleEcdfCommand(command) {
         console.log('Dropdown command received:', command); 
         
@@ -1997,7 +2004,7 @@ export default {
     this.fetchData();
   },
   beforeDestroy() {
-    // 清理工作...
+    this.disposeEcdfChart();
   }
 };
 </script>

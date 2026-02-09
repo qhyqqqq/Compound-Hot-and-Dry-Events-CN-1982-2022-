@@ -235,6 +235,7 @@ import SimpleRenderer from "@arcgis/core/renderers/SimpleRenderer";
 
 import Basemap from '@arcgis/core/Basemap';
 import TileLayer from '@arcgis/core/layers/TileLayer';
+import { ARCGIS_BASE_URL } from '../config';
 
 export default {
   data() {
@@ -287,8 +288,7 @@ export default {
       selectedRegions: [],
       regionsOptions: [],
       // 从geojson中提取的流域列表
-      mapServe:
-        "http://localhost:6080/arcgis/rest/services/SPEI/SPEI发布/MapServer",
+      mapServe: `${ARCGIS_BASE_URL}/SPEI/SPEI发布/MapServer`,
       // 数据配置
     years: [
     { year: "1982", url: "", layerId: "0" },

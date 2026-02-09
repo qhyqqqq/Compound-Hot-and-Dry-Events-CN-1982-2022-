@@ -10,17 +10,11 @@ import numpy as np
 import os
 import traceback  # 用于打印详细错误
 
+from config import BASIN_NAME_COLUMN, BASIN_VECTOR_FILE_PATH, DATA_FILE_PATH
+
 app = Flask(__name__)
 # 允许所有来源的跨域请求，生产环境中应配置更严格的规则
 CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-# --- 配置常量 ---
-# 1. CSV 数据文件路径
-DATA_FILE_PATH = r'C:\Users\lenovo\Desktop\mysql.csv'
-# 2. 流域边界矢量文件路径 (Shapefile 或 GeoJSON)
-BASIN_VECTOR_FILE_PATH = r'F:\DATA\复合高温干旱事件识别系统-数据处理成果\1982-2022干旱指数预处理后数据及输出结果\九大流域\China_nine_basin.shp'  # <--- 修改这里
-# 3. 流域矢量文件中包含流域名称的列名
-BASIN_NAME_COLUMN = 'name'  # <--- 修改这里 (例如 'name', 'Basin_Name', '流域名'等)
 
 # 全局变量存储加载的数据
 data_df = None

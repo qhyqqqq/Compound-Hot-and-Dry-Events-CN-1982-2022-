@@ -113,39 +113,42 @@ conda install -c conda-forge flask flask-cors pandas geopandas shapely numpy ras
 
 ### 4. 配置数据路径
 
-在运行系统前，需要配置后端的数据文件路径。编辑 `highTemp/server/main.py` 文件，修改以下配置常量：
+在运行系统前，需要配置后端的数据文件路径。推荐通过环境变量设置（`highTemp/server/config.py` 会读取并提供默认值）：
 
-```python
+```bash
 # ECDF分析相关路径
-DATA_FILE_PATH = r'C:\Users\lenovo\Desktop\mysql.csv'  # CSV数据文件路径
-BASIN_VECTOR_FILE_PATH = r'F:\DATA\...\China_nine_basin.shp'  # 流域边界矢量文件
-BASIN_NAME_COLUMN = 'name'  # 流域名称列名
+export HIGHTEMP_DATA_FILE_PATH="/path/to/mysql.csv"
+export HIGHTEMP_BASIN_VECTOR_FILE_PATH="/path/to/China_nine_basin.shp"
+export HIGHTEMP_BASIN_NAME_COLUMN="name"
 
 # 栅格数据统计相关路径
-RASTER_DATA_PATH = r"F:\DATA\...\复合高温事件_tif"  # 复合高温干旱事件栅格数据目录
-BASIN_SHP_PATH = r"F:\DATA\...\China_nine_basin.shp"  # 流域边界Shapefile
+export HIGHTEMP_RASTER_DATA_PATH="/path/to/compound_tif"
+export HIGHTEMP_BASIN_SHP_PATH="/path/to/China_nine_basin.shp"
 
 # HWMID数据路径
-HWMID_COUNT_PATH = r"F:\DATA\...\HWMID_tif_次数\HWMID_results"  # HWMID次数数据目录
-HWMID_DAYS_PATH = r"F:\DATA\...\HWMID_results_tif日数"  # HWMID日数数据目录
+export HIGHTEMP_HWMID_COUNT_PATH="/path/to/hwmid_count"
+export HIGHTEMP_HWMID_DAYS_PATH="/path/to/hwmid_days"
+
+# 后端服务端口（可选）
+export HIGHTEMP_API_PORT=5001
 ```
 
 **配置说明**：
 
-1. **DATA_FILE_PATH**: CSV数据文件，应包含以下列：
+1. **HIGHTEMP_DATA_FILE_PATH**: CSV数据文件，应包含以下列：
    - `year`: 年份
    - `latitude`: 纬度
    - `longitude`: 经度
    - `count`: 事件计数
    - 其他相关字段
 
-2. **BASIN_VECTOR_FILE_PATH**: 流域边界矢量文件（Shapefile或GeoJSON），用于空间关联和统计分析
+2. **HIGHTEMP_BASIN_VECTOR_FILE_PATH**: 流域边界矢量文件（Shapefile或GeoJSON），用于空间关联和统计分析
 
-3. **RASTER_DATA_PATH**: 复合高温干旱事件栅格数据目录，包含按年份命名的GeoTIFF文件，格式如：`Compound_1982.tif`
+3. **HIGHTEMP_RASTER_DATA_PATH**: 复合高温干旱事件栅格数据目录，包含按年份命名的GeoTIFF文件，格式如：`Compound_1982.tif`
 
-4. **HWMID_COUNT_PATH**: HWMID次数栅格数据目录，文件格式如：`HWMID_1982.tif`
+4. **HIGHTEMP_HWMID_COUNT_PATH**: HWMID次数栅格数据目录，文件格式如：`HWMID_1982.tif`
 
-5. **HWMID_DAYS_PATH**: HWMID日数栅格数据目录，文件格式如：`HWMID_1982.tif`
+5. **HIGHTEMP_HWMID_DAYS_PATH**: HWMID日数栅格数据目录，文件格式如：`HWMID_1982.tif`
 
 **数据文件要求**：
 
@@ -301,16 +304,14 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:8080"}})
 
 #### 修改API地址
 
-如果后端运行在不同地址或端口，需要修改前端API调用：
+如果后端运行在不同地址或端口，请通过环境变量统一配置：
 
-编辑相关组件文件（如 `src/components/DataManage.vue`、`src/components/HwmidShow.vue` 等）：
-
-```javascript
-// 修改API基础地址
-const apiUrl = 'http://127.0.0.1:5001/api/ecdf_analysis';
-// 改为
-const apiUrl = 'http://your-backend-host:port/api/ecdf_analysis';
+```bash
+export VUE_APP_API_BASE_URL="http://your-backend-host:5001"
+export VUE_APP_ARCGIS_BASE_URL="http://your-arcgis-host:6080/arcgis/rest/services"
 ```
+
+然后重新启动前端服务即可生效。
 
 #### 修改前端端口
 

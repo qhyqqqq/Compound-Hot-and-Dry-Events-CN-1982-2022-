@@ -34,7 +34,7 @@
             <i class="el-icon-data-line"></i>
             <span slot="title">SPEI指数</span>
           </el-menu-item>
-          <el-menu-item index="/Hwmid">
+          <el-menu-item index="/hwmid">
             <i class="el-icon-hot-water"></i>
             <span slot="title">HWMId指数</span>
           </el-menu-item>
@@ -223,6 +223,10 @@ export default {
       coordinates: "纬度: 60.4309, 经度: 62.3497",
       isFullScreen: false,
       isEditing: false,
+      buttonListeners: [],
+      dialogListeners: [],
+      dialogObserver: null,
+      fullscreenHandler: null,
     };
   },
   watch: {
@@ -250,13 +254,26 @@ export default {
       
       // 添加旋转动画
       const weatherCard = document.querySelector('.weather-card');
-      weatherCard.classList.add('refreshing');
+      if (weatherCard) {
+        weatherCard.classList.add('refreshing');
+      }
       
-      const apiKey = "02826a7e6dd187767204762ffa0f08ba";
+      const apiKey = process.env.VUE_APP_OPENWEATHER_KEY || "02826a7e6dd187767204762ffa0f08ba";
+      if (!apiKey) {
+        this.weather.description = "缺少配置";
+        this.$message.error('未配置天气 API Key');
+        if (weatherCard) {
+          weatherCard.classList.remove('refreshing');
+        }
+        return;
+      }
       const url = `https://api.openweathermap.org/data/2.5/weather?q=Chuzhou,cn&appid=${apiKey}&units=metric&lang=zh_cn`;
 
       try {
         const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`天气接口响应失败 (${response.status})`);
+        }
         const data = await response.json();
         this.weather.temperature = Math.round(data.main.temp);
         this.weather.description = data.weather[0].description;
@@ -277,9 +294,25 @@ export default {
       } finally {
         // 移除旋转动画
         setTimeout(() => {
-          weatherCard.classList.remove('refreshing');
+          if (weatherCard) {
+            weatherCard.classList.remove('refreshing');
+          }
         }, 1000);
       }
+    },
+    clearButtonListeners() {
+      this.buttonListeners.forEach(({ element, clickHandler, moveHandler }) => {
+        element.removeEventListener('click', clickHandler);
+        element.removeEventListener('mousemove', moveHandler);
+      });
+      this.buttonListeners = [];
+    },
+    clearDialogListeners() {
+      this.dialogListeners.forEach(({ element, moveHandler, leaveHandler }) => {
+        element.removeEventListener('mousemove', moveHandler);
+        element.removeEventListener('mouseleave', leaveHandler);
+      });
+      this.dialogListeners = [];
     },
     showSystemInfo() {
       this.$alert(
@@ -437,15 +470,16 @@ export default {
     document.body.className = savedTheme;
     
     // 监听全屏状态变化
-    document.addEventListener('fullscreenchange', () => {
+    this.fullscreenHandler = () => {
       this.isFullScreen = !!document.fullscreenElement;
-    });
+    };
+    document.addEventListener('fullscreenchange', this.fullscreenHandler);
     
     // 添加按钮波纹效果
     this.$nextTick(() => {
       const buttons = document.querySelectorAll('.func-button, .el-button');
       buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        const clickHandler = function(e) {
           const x = e.clientX - this.getBoundingClientRect().left;
           const y = e.clientY - this.getBoundingClientRect().top;
           
@@ -459,10 +493,10 @@ export default {
           setTimeout(() => {
             ripple.remove();
           }, 600);
-        });
+        };
         
         // 添加鼠标跟随效果
-        button.addEventListener('mousemove', function(e) {
+        const moveHandler = function(e) {
           const x = e.clientX - this.getBoundingClientRect().left;
           const y = e.clientY - this.getBoundingClientRect().top;
           const percentX = Math.round((x / this.offsetWidth) * 100);
@@ -470,17 +504,21 @@ export default {
           
           this.style.setProperty('--x', percentX + '%');
           this.style.setProperty('--y', percentY + '%');
-        });
+        };
+        button.addEventListener('click', clickHandler);
+        button.addEventListener('mousemove', moveHandler);
+        this.buttonListeners.push({ element: button, clickHandler, moveHandler });
       });
       
       // 弹窗鼠标跟随效果
       const addDialogEffect = () => {
+        this.clearDialogListeners();
         const dialogs = document.querySelectorAll('.el-dialog');
         dialogs.forEach(dialog => {
           const dialogBody = dialog.querySelector('.el-dialog__body');
           if (!dialogBody) return;
           
-          dialog.addEventListener('mousemove', function(e) {
+          const moveHandler = function(e) {
             const dialogRect = this.getBoundingClientRect();
             const centerX = dialogRect.width / 2;
             const centerY = dialogRect.height / 2;
@@ -494,13 +532,16 @@ export default {
             if (dialogBody) {
               dialogBody.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
             }
-          });
+          };
           
-          dialog.addEventListener('mouseleave', function() {
+          const leaveHandler = function() {
             if (dialogBody) {
               dialogBody.style.transform = 'translate3d(0, 0, 0)';
             }
-          });
+          };
+          dialog.addEventListener('mousemove', moveHandler);
+          dialog.addEventListener('mouseleave', leaveHandler);
+          this.dialogListeners.push({ element: dialog, moveHandler, leaveHandler });
         });
         
         // 给弹窗内容添加依次淡入效果
@@ -514,7 +555,7 @@ export default {
       };
       
       // 监听弹窗打开事件
-      const observer = new MutationObserver((mutations) => {
+      this.dialogObserver = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.addedNodes.length > 0) {
             // 检查是否添加了弹窗
@@ -529,7 +570,7 @@ export default {
         });
       });
       
-      observer.observe(document.body, { childList: true, subtree: false });
+      this.dialogObserver.observe(document.body, { childList: true, subtree: false });
       
       // 给上传项添加渐入效果
       const uploadItems = document.querySelectorAll('.upload-item');
@@ -543,6 +584,15 @@ export default {
     if (this.weatherInterval) {
       clearInterval(this.weatherInterval);
     }
+    if (this.fullscreenHandler) {
+      document.removeEventListener('fullscreenchange', this.fullscreenHandler);
+    }
+    if (this.dialogObserver) {
+      this.dialogObserver.disconnect();
+      this.dialogObserver = null;
+    }
+    this.clearButtonListeners();
+    this.clearDialogListeners();
   }
 };
 </script>
@@ -1280,5 +1330,4 @@ export default {
   }
 }
 </style>
-
 
